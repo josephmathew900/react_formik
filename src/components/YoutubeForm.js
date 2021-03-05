@@ -26,7 +26,7 @@ const initialValues = {
 
 const savedValues = {
   name: "Joseph",
-  email: "test@123",
+  email: "test@gmail.com",
   channel: "test channel",
   comments: "welcome to formik",
   address: "22 Baker street",
@@ -41,6 +41,7 @@ const savedValues = {
 const onSubmit = (values, onSubmitProps) => {
   console.log("Form data", values);
   onSubmitProps.setSubmitting(false);
+  onSubmitProps.resetForm();
 };
 
 const validationSchema = Yup.object({
@@ -212,6 +213,9 @@ function YoutubeForm() {
             <button type="button" onClick={() => setFormValues(savedValues)}>
               Load saved data
             </button>
+
+            {/* Reset Button */}
+            <button type="reset">Reset</button>
 
             {/* Submit Button */}
             <button
