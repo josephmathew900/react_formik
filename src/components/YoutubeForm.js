@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Formik,
   Form,
@@ -16,6 +16,20 @@ const initialValues = {
   channel: "",
   comments: "",
   address: "",
+  social: {
+    facebook: "",
+    twitter: "",
+  },
+  phoneNumbers: ["", ""],
+  phNumbers: [""],
+};
+
+const savedValues = {
+  name: "Joseph",
+  email: "test@123",
+  channel: "test channel",
+  comments: "welcome to formik",
+  address: "22 Baker street",
   social: {
     facebook: "",
     twitter: "",
@@ -44,13 +58,15 @@ const validateComments = (value) => {
 };
 
 function YoutubeForm() {
+  const [formValues, setFormValues] = useState(null);
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
       validateOnChange={false}
       //validateOnMount
+      enableReinitialize
     >
       {(formik) => {
         return (
@@ -160,6 +176,7 @@ function YoutubeForm() {
               </FieldArray>
             </div>
 
+            {/* Validate Buttons */}
             <button
               type="button"
               onClick={() => formik.validateField("comments")}
@@ -170,6 +187,7 @@ function YoutubeForm() {
               Validate all
             </button>
 
+            {/* Visit Buttons */}
             <button
               type="button"
               onClick={() => formik.setFieldTouched("comments")}
@@ -190,6 +208,12 @@ function YoutubeForm() {
               Visit all
             </button>
 
+            {/* Data Load Button */}
+            <button type="button" onClick={() => setFormValues(savedValues)}>
+              Load saved data
+            </button>
+
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={
